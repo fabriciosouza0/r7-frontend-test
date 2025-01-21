@@ -1,0 +1,57 @@
+@import "./typograph.css";
+
+.d-flex {
+  display: flex !important;
+}
+
+.justify-content-init {
+  justify-content: initial;
+}
+
+.justify-content-center {
+  justify-content: center !important;
+}
+
+.justify-content-end {
+  justify-content: end !important;
+}
+
+.align-items-init {
+  align-items: initial !important;
+}
+
+.align-items-center {
+  align-items: center !important;
+}
+
+.align-items-end {
+  align-items: end !important;
+}
+
+.flex-column {
+  flex-direction: column !important;
+}
+
+.mt-1 {
+  margin-top: 1rem !important;
+}
+
+.p-1 {
+  padding: 1rem !important;
+}
+
+.column-gap-2 {
+  column-gap: 1.2rem !important;
+}
+
+.border-3 {
+  border: 3px solid var(--red-100) !important;
+}
+
+.circle {
+  border-radius: 50% !important;
+}
+
+.rounded {
+  border-radius: 0.15rem !important;
+}

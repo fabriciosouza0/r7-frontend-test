@@ -1,5 +1,29 @@
+@import "./settings/config.css";
+@import "./tools/tools.css";
+@import "./generic/reset.css";
+@import "./objects/objects.css";
+@import "./components/components.css";
+@import "./trumps/utilities.css";
+
 body {
-  text-align: center;
-  font-size: 12px;
-  font-family: "Arial, sans-serif";
+  background-color: var(--dark);
+}
+
+header {
+  border-bottom-left-radius: 100px;
+  border-top-left-radius: 0.15rem;
+  border-top-right-radius: 0.15rem;
+  border-bottom-right-radius: 0.15rem;
+}
+
+.container {
+  background-color: var(--light);
+}
+
+#logo {
+  position: absolute;
+  height: 230px;
+  width: 200px;
+  top: -145px;
+  left: -40px;
 }

@@ -1,0 +1,14 @@
+:root {
+  --light: #ffff;
+  --grey-100: #f1f1ef;
+  --grey-200: #dfdfdf;
+  --grey-300: #d3d3d3;
+  --grey-400: #a2a09e;
+  --grey-500: #a4a5a5;
+  --dark: #272727;
+  --red-100: #b73535;
+  --font-family: Arial, Helvetica, sans-serif;
+  --font-sm: 0.85rem;
+  --font-md: 1.2rem;
+  --font-lg: 2rem;
+}
