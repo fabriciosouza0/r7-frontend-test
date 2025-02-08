@@ -1,5 +1,9 @@
 @import "./typograph.css";
 
+.d-none {
+  display: none !important;
+}
+
 .d-flex {
   display: flex !important;
 }
@@ -45,7 +49,7 @@
 }
 
 .border-3 {
-  border: 3px solid var(--red-100) !important;
+  border: 5px solid var(--red-100) !important;
 }
 
 .circle {
@@ -54,4 +58,12 @@
 
 .rounded {
   border-radius: 0.15rem !important;
+}
+
+.opacity-0 {
+  opacity: 0 !important;
+}
+
+.opacity-1 {
+  opacity: 1 !important;
 }
