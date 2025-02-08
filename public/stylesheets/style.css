@@ -1,0 +1,98 @@
+@import "./settings/config.css";
+@import "./tools/tools.css";
+@import "./generic/reset.css";
+@import "./objects/objects.css";
+@import "./components/badges.css";
+@import "./components/tool-tip.css";
+@import "./trumps/utilities.css";
+
+body {
+  background-color: var(--dark);
+  overflow-x: hidden;
+}
+
+header {
+  border-bottom-left-radius: 100px;
+  border-top-left-radius: 0.15rem;
+  border-top-right-radius: 0.15rem;
+  border-bottom-right-radius: 0.15rem;
+}
+
+.container {
+  background-color: var(--light);
+}
+
+#logo {
+  position: absolute;
+  height: 130px;
+  width: 115px;
+  top: -55px;
+  left: -20px;
+}
+
+.card {
+  position: relative;
+  cursor: pointer;
+  transition: all linear 0.25s;
+}
+
+.card:hover {
+  background-color: var(--red-100);
+}
+
+.card:hover > .circle.border-3 {
+  border-color: var(--light) !important;
+}
+
+.card:hover > .card-body > .name {
+  color: var(--light);
+}
+
+.card:hover > .card-body > .description {
+  color: var(--dark);
+}
+
+.card > .circle {
+  min-width: 75px;
+  min-height: 75px;
+  max-width: 75px;
+  max-height: 75px;
+}
+
+.card > .circle > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.name {
+  color: var(--red-100);
+  margin-bottom: 0.15rem;
+}
+
+.description {
+  color: var(--grey-400);
+}
+
+.circle.border-3 {
+  position: relative;
+}
+
+.circle.border-3 > span {
+  position: absolute;
+  right: 0px;
+  bottom: -5px;
+}
+
+.tool-tip > .left {
+  border-right: 1px solid var(--grey-500);
+}
+
+@media (min-width: 576px) {
+  #logo {
+    height: 230px;
+    width: 200px;
+    top: -145px;
+    left: -40px;
+  }
+}
