@@ -7,7 +7,7 @@
 export default class Ranking {
   // Fetches candidate data from JSON endpoint
   async fetchCandidates() {
-    const url = "http://localhost:7007/fazenda.json";
+    const url = "./fazenda.json";
 
     try {
       const response = await fetch(url);
