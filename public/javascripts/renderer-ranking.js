@@ -25,9 +25,7 @@ export default class RendererRanking {
 
     // Generate the HTML for the ranking by mapping through the candidates
     renderer.innerHTML = this.candidates
-      .map((candidate, index) => {
-        candidate.picture = candidate.picture.replace("http", "https"); // Sets image url protocol from http to https
-        
+      .map((candidate, index) => {        
         return `
         <div class="card d-flex p-1 column-gap-2">
           <!-- Tooltip section, hidden by default -->
