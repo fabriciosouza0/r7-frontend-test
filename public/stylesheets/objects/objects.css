@@ -1,12 +1,14 @@
 .container {
   position: relative;
-  margin: 0 auto;
-  width: 100%;
-  max-width: 300px;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  width: calc(100% - 2rem);
+  background-color: var(--light);
 }
 
 @media (min-width: 400px) {
   .container {
+    margin: 0 auto;
     max-width: 360px;
   }
 }

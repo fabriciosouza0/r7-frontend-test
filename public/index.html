@@ -6,13 +6,13 @@
     <title>R7 FrontEnd Test</title>
     <link rel="stylesheet" href="stylesheets/style.css" media="all">
   </head>
-  <body class="d-flex flex-column justify-content-center full-view">
-    <header class="container d-flex p-1 justify-content-end">
+  <body class="d-flex flex-column full-view-body mt-1 mb-1">
+    <header class="container">
       <img id="logo" src="assets/images/logo.png" draggable="false" alt="A fazenda 1" />
-      <h1 class="title-lg bolder">RANKING</h1>
+      <h1 class="title-lg bolder" id="ranking_title">RANKING</h1>
     </header>
 
-    <main class="container d-flex flex-column mt-1 rounded" id="renderer_element"></main>
+    <main class="container d-flex flex-column rounded" id="renderer_element"></main>
 
     <script type="module" src="javascripts/main.js"></script>
 </html>

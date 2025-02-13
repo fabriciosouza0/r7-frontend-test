@@ -26,6 +26,8 @@ export default class RendererRanking {
     // Generate the HTML for the ranking by mapping through the candidates
     renderer.innerHTML = this.candidates
       .map((candidate, index) => {
+        candidate.picture = candidate.picture.replace("http", "https"); // Sets image url protocol from http to https
+        
         return `
         <div class="card d-flex p-1 column-gap-2">
           <!-- Tooltip section, hidden by default -->
@@ -83,7 +85,7 @@ export default class RendererRanking {
 
     // If the tooltip would overflow to the left, adjust its position
     if (tooltipWidth < parentX) {
-      this.hideTooltip(tooltip, -244);
+      this.hideTooltip(tooltip, -244);// Start the timer to hide the tooltip
       tooltip.style.right = `-${tooltipWidth}px`; // Move the tooltip to the left
       tooltip.style.opacity = 1; // Make it fully visible
       return;
