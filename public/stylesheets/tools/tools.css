@@ -1,4 +1,7 @@
 .full-view {
-  width: 100dvw;
-  height: 100dvh;
+  min-height: var(--dvh-100);
+}
+
+.full-view-body {
+  min-height: var(--dvh-body);
 }
