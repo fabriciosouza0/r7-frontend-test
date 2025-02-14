@@ -6,28 +6,24 @@
   font-size: var(--sub-title-font-size) !important;
 }
 
-.font-lg {
-  font-size: var(--font-lg) !important;
-}
-
-.font-md {
-  font-size: var(--font-md) !important;
+.font-xsm {
+  font-size: var(--font-xsm) !important;
 }
 
 .font-sm {
   font-size: var(--font-sm) !important;
 }
 
+.font-md {
+  font-size: var(--font-md) !important;
+}
+
+.font-lg {
+  font-size: var(--font-lg) !important;
+}
+
 .title-lg {
   font-size: 1.5rem !important;
-}
-
-.title-md {
-  font-size: 1.2rem !important;
-}
-
-.title-sm {
-  font-size: 0.85rem !important;
 }
 
 .semi-bold {
