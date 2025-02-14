@@ -19,20 +19,22 @@ header.container {
 
 #logo {
   position: relative;
-  height: 200px;
-  width: 170px;
-  left: -1rem;
+  height: 55%;
+  width: 55%;
+  bottom: -0.25rem;
+  left: -10%;
 }
 
 #ranking_title {
   position: absolute;
   width: 80%;
-  padding: 1rem;
+  padding: 0.75rem 2.7rem 0.75rem 0.75rem;
   right: 0;
-  bottom: 1rem;
+  bottom: 0.75rem;
   border-radius: var(--border-radius);
   background-color: var(--light);
   text-align: right;
+  letter-spacing: -3px;
   z-index: -1;
 }
 
@@ -40,6 +42,8 @@ header.container {
   position: relative;
   cursor: pointer;
   transition: all linear 0.25s;
+  padding: 0.85rem 2.7rem 0.85rem 1rem;
+  border-radius: var(--border-radius);
 }
 
 .card:hover {
@@ -59,10 +63,10 @@ header.container {
 }
 
 .card > .circle {
-  min-width: 75px;
-  min-height: 75px;
-  max-width: 75px;
-  max-height: 75px;
+  min-width: 65px;
+  min-height: 65px;
+  max-width: 65px;
+  max-height: 65px;
 }
 
 .card > .circle > img {
@@ -94,9 +98,10 @@ header.container {
   border-right: 1px solid var(--grey-500);
 }
 
-@media (min-width: 400px) {
+@media (min-width: 425px) {
   #logo {
-    height: 230px;
-    width: 200px;
+    height: 60%;
+    width: 60%;
+    left: -15%;
   }
 }
