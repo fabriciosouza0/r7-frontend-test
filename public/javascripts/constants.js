@@ -11,4 +11,7 @@
 export const TOOLTIP_OFFSETS = {
   DESKTOP: 81.3,
   MOBILE: 21.3,
+  CARP_P_L: 16,
+  GAP: 4,
+  RIGHT_GAP: 24,
 };
