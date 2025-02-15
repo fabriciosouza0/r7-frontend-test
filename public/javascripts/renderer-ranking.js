@@ -72,11 +72,24 @@ export default class RendererRanking {
     });
   }
 
+  /*
+    card width        = 360px
+    tooltip width     = 183.7px
+    image width       = 75px
+    card padding-left = 16px
+    gap               = 4px
+
+    the formula is equal to (360px - 183.7px - 75px - 16px - 4px => 81.3px) for medium/large devices(desktops)
+    the formula is equal to (300px - 183.7px - 75px - 16px - 4px => 21.3px) for mobile devices
+  */
   calculateTooltipOffset(parent, tooltip) {
     const parentWidth = parent.getBoundingClientRect().width;
     const candidatePicWidth = parent.closest('.circle').getBoundingClientRect().width();
     const tooltipWidth = tooltip.getBoundingClientRect().width;
 
+    const offset = parentWidth - tooltipWidth - candidatePicWidth - 16 - TOOLTIP_OFFSETS.GAP;
+
+    return offset;
   }
 
   placeTooltipAside(parent, tooltip) {
