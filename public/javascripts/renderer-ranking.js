@@ -17,9 +17,9 @@ export default class RendererRanking {
 
     // Check if the target element exists and if there are candidates to display
     if (!(renderer instanceof HTMLElement) || this.candidates.length < 1) {
-      window.alert(
-        "Elemento renderizador não encontrado ou lista de candidatos vazia/não informada."
-      ); // Show an alert if something's wrong
+      console.error(
+        "Invalid target element provided for ranking rendering. Or failure in the fetch of candidates"
+      );
       return;
     }
 
@@ -31,21 +31,23 @@ export default class RendererRanking {
           <!-- Tooltip section, hidden by default -->
           <div class="tool-tip d-none">
             <div class="left">
-              <div class="tool-tip-header">POSITIVO</div>
+              <div class="tool-tip-header">GOSTARAM</div>
               <div class="tool-tip-body">${candidate.positive_percentage}%</div>
             </div>
             <div class="right">
-              <div class="tool-tip-header">NEGATIVO</div>
+              <div class="tool-tip-header">NÃO GOSTARAM</div>
               <div class="tool-tip-body">${candidate.negative_percentage}%</div>
             </div>
           </div>
 
           <!-- Candidate's image and ranking badge -->
           <div class="circle border-3">
-            <img class="circle" draggable="false" src="${candidate.picture
-          }" alt="${candidate.description}" />
-            <span class="badges circle">${index + 1
-          }</span> <!-- Display the candidate's rank -->
+            <img class="circle" draggable="false" src="${
+              candidate.picture
+            }" alt="${candidate.description}" />
+            <span class="badges circle">${
+              index + 1
+            }</span> <!-- Display the candidate's rank -->
           </div>
 
           <!-- Candidate's name and description -->
@@ -63,7 +65,6 @@ export default class RendererRanking {
       const parent = e.target.closest(".card"); // Find the closest card element that was clicked
       const tooltip = parent.querySelector(".tool-tip"); // Find the tooltip inside that card
       const isTooltipHidden = tooltip.classList.contains("d-none"); // Check if the tooltip is currently hidden
-      const parentBCR = parent.getBoundingClientRect(); // Get the position and size of the card
 
       // If the tooltip is hidden, show it and position it correctly
       if (isTooltipHidden) {
@@ -72,62 +73,77 @@ export default class RendererRanking {
     });
   }
 
-  /*
-    card width        = 360px
-    tooltip width     = 183.7px
-    image width       = 75px
-    card padding-left = 16px
-    gap               = 4px
+  // Checks if there is enough space to the left of the element to display the tooltip beside it,
+  // returning true if it can be positioned correctly.
+  placeTooltipAside(parent, tooltip) {
+    const parentX = parent.getBoundingClientRect().x; // Gets the horizontal position of the card
+    const tooltipWidth = Math.round(
+      tooltip.getBoundingClientRect().width +
+        TOOLTIP_OFFSETS.RIGHT_GAP +
+        TOOLTIP_OFFSETS.ARROW_SIZE
+    ); // Calculates the total width of the tooltip including the right margin and the arrow size
 
-    the formula is equal to (360px - 183.7px - 75px - 16px - 4px => 81.3px) for medium/large devices(desktops)
-    the formula is equal to (300px - 183.7px - 75px - 16px - 4px => 21.3px) for mobile devices
-  */
-  calculateTooltipOffset(parent, tooltip) {
-    const parentWidth = parent.getBoundingClientRect().width;
-    const candidatePicWidth = parent.closest('.circle').getBoundingClientRect().width();
-    const tooltipWidth = tooltip.getBoundingClientRect().width;
+    console.log(tooltipWidth < parentX);
 
-    const offset = parentWidth - tooltipWidth - candidatePicWidth - 16 - TOOLTIP_OFFSETS.GAP;
-
-    return offset;
+    return tooltipWidth < parentX; // Returns true if the tooltip fits in the left position
   }
 
-  placeTooltipAside(parent, tooltip) {
-    const parentX = parent.getBoundingClientRect().x + TOOLTIP_OFFSETS.GAP_RIGHT; // Get the horizontal position of the card
-    const tooltipWidth = parseInt(tooltip.getBoundingClientRect().width + TOOLTIP_OFFSETS.GAP_RIGHT); // Calculate the tooltip width
+  // Calculates the final horizontal position of the tooltip based on the size of the card and the candidate's image
+  calculateTooltipOffset(parent, tooltip) {
+    const parentWidth = parent.getBoundingClientRect().width; // Total width of the card
+    const candidatePicWidth = parent
+      .querySelector("div.circle.border-3")
+      .getBoundingClientRect().width; // Width of the candidate's image
+    const tooltipWidth = Math.round(tooltip.getBoundingClientRect().width); // Width of the tooltip
 
-    return tooltipWidth < parentX;
+    // Returns the final adjusted position considering the sizes of the card, image, and tooltip arrow
+    return (
+      parentWidth -
+      tooltipWidth -
+      candidatePicWidth -
+      TOOLTIP_OFFSETS.ARROW_SIZE -
+      TOOLTIP_OFFSETS.RIGHT_GAP
+    );
+  }
+
+  // Calculates the initial position of the tooltip before displaying it, ensuring a sliding effect
+  calculateTooltipInitialPosition(tooltip) {
+    const tW = tooltip.getBoundingClientRect().width; // Gets the tooltip width
+    const initialPosition = Math.round(
+      tW + TOOLTIP_OFFSETS.RIGHT_GAP + TOOLTIP_OFFSETS.ARROW_SIZE
+    ); // Calculates the initial position offset
+
+    return initialPosition; // Returns the calculated initial position
   }
 
   // Method to show the tooltip and position it relative to the card
-  showToolTip(parent, tooltip) {
+  async showToolTip(parent, tooltip) {
     tooltip.classList.remove("d-none"); // Make the tooltip visible
-    const placeAside = this.placeTooltipAside(parent, tooltip);
+    const tW = tooltip.getBoundingClientRect().width; // tooltip width
+    const placeAside = this.placeTooltipAside(parent, tooltip); // Verify if the tooltip can be placed aside the candidate card
+    const initialPosition = this.calculateTooltipInitialPosition(tooltip);
 
     // If the tooltip would overflow to the left, adjust its position
     if (placeAside) {
-      this.hideTooltip(tooltip, -244); // Start the timer to hide the tooltip
-      tooltip.style.right = `-${tooltipWidth}px`; // Move the tooltip to the left
+      this.hideTooltip(tooltip, `-${initialPosition}px`); // Start the timer to hide the tooltip
+      tooltip.style.right = `-${tW + TOOLTIP_OFFSETS.RIGHT_GAP}px`; // Move the tooltip to the left
       tooltip.style.opacity = 1; // Make it fully visible
       return;
     }
 
-    // Determine the final position of the tooltip based on the card's width
-    const finalPosition =
-      parentWidth === 360
-        ? `${TOOLTIP_OFFSETS.DESKTOP}px` // Desktop offset
-        : `${TOOLTIP_OFFSETS.MOBILE}px`; // Mobile offset
+    // Determine the final position of the tooltip based on the card's width(in mobile case)
+    const finalPosition = this.calculateTooltipOffset(parent, tooltip);
 
     this.hideTooltip(tooltip, 0); // Start the timer to hide the tooltip
 
-    tooltip.style.right = finalPosition; // Position the tooltip
+    tooltip.style.right = `${finalPosition}px`; // Position the tooltip
     tooltip.style.opacity = 1; // Make it fully visible
   }
 
   // Method to hide the tooltip after a delay
   hideTooltip(tooltip, startPosition) {
     setTimeout(() => {
-      tooltip.style.right = `${startPosition}px`; // Move the tooltip back to its starting position
+      tooltip.style.right = startPosition; // Move the tooltip back to its starting position
       tooltip.style.opacity = 0; // Fade it out
     }, this.tooltipDelay); // Wait for the specified delay
 
