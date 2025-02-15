@@ -2,7 +2,7 @@
   position: absolute;
   display: flex;
   opacity: 0;
-  right: 0px; /* Initial position of tooltip in mobile devices */
+  right: var(--tooltip-r);
   border-radius: 0.25rem;
   -webkit-box-shadow: 0px 0px 33px -4px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 0px 33px -4px rgba(0, 0, 0, 0.75);
@@ -19,7 +19,7 @@
 
 .tool-tip-header {
   background-color: var(--red-100);
-  font-size: var(--font-xsm);
+  font-size: var(--tooltip-header-font-size);
   color: var(--light);
 }
 
@@ -43,10 +43,4 @@
 
 .tool-tip.visible {
   opacity: 1;
-}
-
-@media (min-width: 754px) {
-  .tool-tip {
-    right: -244px; /* Initial position of tooltip in desktops devices */
-  }
 }
