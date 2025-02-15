@@ -20,5 +20,15 @@
   --border-radius: 0.15rem;
   --dvw-100: 100dvw;
   --dvh-100: 100dvh;
-  --dvh-body: calc(var(--dvh-100) - 3rem); /* considering the margin-top/bottom of the body */
+  --dvh-body: calc(
+    var(--dvh-100) - 3rem
+  ); /* considering the margin-top/bottom of the body */
+  --tooltip-r: 0; /* initial position of the tooltip for the animation start in mobile devices */
+  --tooltip-header-font-size: 0.65rem;
+}
+
+@media (min-width: 853px) {
+  :root {
+    --tooltip-r: -246px; /* initial position of the tooltip for the animation start in desktop devices */
+  }
 }
