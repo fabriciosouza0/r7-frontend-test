@@ -42,12 +42,10 @@ export default class RendererRanking {
 
           <!-- Candidate's image and ranking badge -->
           <div class="circle border-3">
-            <img class="circle" draggable="false" src="${
-              candidate.picture
-            }" alt="${candidate.description}" />
-            <span class="badges circle">${
-              index + 1
-            }</span> <!-- Display the candidate's rank -->
+            <img class="circle" draggable="false" src="${candidate.picture
+          }" alt="${candidate.description}" />
+            <span class="badges circle">${index + 1
+          }</span> <!-- Display the candidate's rank -->
           </div>
 
           <!-- Candidate's name and description -->
@@ -69,20 +67,32 @@ export default class RendererRanking {
 
       // If the tooltip is hidden, show it and position it correctly
       if (isTooltipHidden) {
-        this.showToolTip(tooltip, parentBCR);
+        this.showToolTip(parent, tooltip);
       }
     });
   }
 
+  calculateTooltipOffset(parent, tooltip) {
+    const parentWidth = parent.getBoundingClientRect().width;
+    const candidatePicWidth = parent.closest('.circle').getBoundingClientRect().width();
+    const tooltipWidth = tooltip.getBoundingClientRect().width;
+
+  }
+
+  placeTooltipAside(parent, tooltip) {
+    const parentX = parent.getBoundingClientRect().x + TOOLTIP_OFFSETS.GAP_RIGHT; // Get the horizontal position of the card
+    const tooltipWidth = parseInt(tooltip.getBoundingClientRect().width + TOOLTIP_OFFSETS.GAP_RIGHT); // Calculate the tooltip width
+
+    return tooltipWidth < parentX;
+  }
+
   // Method to show the tooltip and position it relative to the card
-  showToolTip(tooltip, boundingClientRect) {
+  showToolTip(parent, tooltip) {
     tooltip.classList.remove("d-none"); // Make the tooltip visible
-    const parentWidth = boundingClientRect.width; // Get the width of the card
-    const parentX = boundingClientRect.x; // Get the horizontal position of the card
-    const tooltipWidth = parseInt(tooltip.getBoundingClientRect().width + 24); // Calculate the tooltip's width
+    const placeAside = this.placeTooltipAside(parent, tooltip);
 
     // If the tooltip would overflow to the left, adjust its position
-    if (tooltipWidth < parentX) {
+    if (placeAside) {
       this.hideTooltip(tooltip, -244); // Start the timer to hide the tooltip
       tooltip.style.right = `-${tooltipWidth}px`; // Move the tooltip to the left
       tooltip.style.opacity = 1; // Make it fully visible
